@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#E9C4C0">
+<title>Boda · José de Jesús & Gloria Adriana</title>
+<meta name="description" content="Boda de José de Jesús & Gloria Adriana — 3 de octubre de 2026. Álbum digital y selector de fotos por FORO 7.">
+<meta property="og:title" content="Boda de José de Jesús & Gloria Adriana">
+<meta property="og:description" content="3 de octubre de 2026 · Álbum digital y selección de fotos">
+<link rel="icon" type="image/svg+xml" href="favicon.svg?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css?v=2">
+<link rel="stylesheet" href="css/index.css?v=2">
+</head>
+<body>
+
+<header class="hero">
+    <p class="hero-quince">J &amp; G</p>
+    <h1 class="hero-nombre">José de Jesús & Gloria Adriana</h1>
+    <p class="hero-etiqueta">Nuestra boda</p>
+    <p class="hero-fecha">Sábado 3 de octubre de 2026</p>
+
+    <div class="cuenta" id="cuenta"></div>
+
+    <div class="hero-acciones">
+        <a class="btn btn-primario" href="selector.html">✨ Seleccionar mis fotos</a>
+        <a class="btn btn-suave" href="album.html?filtro=album">📖 Ver álbum digital</a>
+    </div>
+</header>
+
+<!-- ─────────── ÁLBUM DIGITAL ─────────── -->
+<section class="seccion" id="album-digital">
+    <div class="container">
+        <h2 class="seccion-titulo">Álbum Digital</h2>
+        <p class="seccion-intro">
+            Su galería en línea. Aquí viven las fotos favoritas de la ceremonia y la fiesta:
+            se ven a pantalla completa, se pueden descargar y se comparten con un solo enlace.
+            De este álbum sale también el videoclip que se proyecta en el salón.
+        </p>
+
+        <div class="album-banda">
+            <h3>Compártelo con quien quieras</h3>
+            <p>
+                Cada enlace abre <strong>solo el álbum</strong>: quien lo reciba ve las fotos,
+                sin las herramientas del selector y sin poder cambiar tu selección.
+            </p>
+            <div class="album-enlaces">
+                <a class="btn btn-primario" href="album.html?filtro=album">📖 Álbum digital</a>
+                <a class="btn btn-suave" href="album.html?filtro=impresion">📸 Fotos de impresión</a>
+                <a class="btn btn-suave" href="album.html?filtro=ampliacion">🖼️ La ampliación</a>
+                <a class="btn btn-suave" href="album.html?filtro=todas">🌸 Todas las elegidas</a>
+                <a class="btn btn-suave" href="album.html">🔧 Álbum con herramientas</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─────────── SELECTOR ─────────── -->
+<section class="seccion" id="selector">
+    <div class="container">
+        <h2 class="seccion-titulo">Selector de Fotos</h2>
+        <p class="seccion-intro">
+            Ahí eliges qué fotos quieres impresas, cuál va ampliada y cuáles entran a tu álbum digital.
+            Se guarda solo, funciona en celular y computadora, y puedes cambiar de opinión cuando quieras.
+            Dentro encontrarás el botón <strong>❔ Ayuda</strong> con la explicación de cada herramienta.
+        </p>
+
+        <div class="tarjetas">
+            <article class="tarjeta" data-cat="impresion">
+                <span class="tarjeta-icono">📸</span>
+                <h3 id="tarjetaImpresionTitulo">Impresión</h3>
+                <p id="tarjetaImpresionTexto"></p>
+            </article>
+            <article class="tarjeta" data-cat="ampliacion">
+                <span class="tarjeta-icono">🖼️</span>
+                <h3 id="tarjetaAmpliacionTitulo">Ampliación</h3>
+                <p id="tarjetaAmpliacionTexto"></p>
+            </article>
+            <article class="tarjeta" data-cat="album">
+                <span class="tarjeta-icono">📖</span>
+                <h3>Álbum digital</h3>
+                <p>Tus favoritas para la galería en línea y el videoclip del salón.
+                   Sin límite y sin costo extra.</p>
+            </article>
+            <article class="tarjeta" data-cat="descartada">
+                <span class="tarjeta-icono">❌</span>
+                <h3>Descartar</h3>
+                <p>Las que no te gustaron desaparecen de la vista general para que avances rápido.
+                   Siguen ahí, en el filtro «Descartadas», por si te arrepientes.</p>
+            </article>
+        </div>
+
+        <p style="text-align:center; margin-top:26px;">
+            <a class="btn btn-primario" href="selector.html">Entrar al selector</a>
+        </p>
+    </div>
+</section>
+
+<!-- ─────────── PAQUETE ─────────── -->
+<section class="seccion" id="paquete">
+    <div class="container">
+        <h2 class="seccion-titulo">Tu paquete</h2>
+        <p class="seccion-intro" id="paqueteNombre"></p>
+        <ul class="paquete-lista" id="paqueteLista"></ul>
+        <p style="text-align:center; margin-top:26px;">
+            <a class="btn btn-suave" href="https://wa.me/524779203776" target="_blank" rel="noopener">
+                💬 Preguntar por WhatsApp
+            </a>
+        </p>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>FORO 7 · Fotografía y Video · León, Gto.</p>
+    <p><a href="https://wa.me/524779203776" target="_blank" rel="noopener">WhatsApp 477 920 3776</a></p>
+</footer>
+
+<script src="js/config.js?v=2"></script>
+<script>
+(function () {
+    const CFG = window.EVENT_CONFIG;
+
+    /* Paquete */
+    document.getElementById('paqueteNombre').textContent = CFG.paquete.nombre;
+    document.getElementById('paqueteLista').innerHTML =
+        CFG.paquete.incluye.map(i => '<li>' + i + '</li>').join('');
+
+    /* Tarjetas del selector: los números salen de la config, nunca del HTML */
+    document.getElementById('tarjetaImpresionTitulo').textContent =
+        'Impresión ' + CFG.paquete.medidaImpresion.replace(' pulgadas', '');
+    document.getElementById('tarjetaImpresionTexto').textContent =
+        `Las ${CFG.limiteImpresion} fotos incluidas en tu paquete, impresas en papel tamaño ` +
+        `${CFG.paquete.medidaImpresion}. Si eliges de más, te avisamos el costo extra ` +
+        `($${CFG.costoFotoAdicional} MXN por foto) antes de imprimir.`;
+    document.getElementById('tarjetaAmpliacionTitulo').textContent =
+        'Ampliación ' + CFG.paquete.ampliacionMedida.replace(' con marco', '');
+    document.getElementById('tarjetaAmpliacionTexto').textContent =
+        `La foto grande de exhibición (${CFG.paquete.ampliacionMedida}). Tu paquete incluye ` +
+        `${CFG.limiteAmpliacion}: elige la que quieras ver colgada en la pared.`;
+
+    /* Cuenta regresiva */
+    const cont = document.getElementById('cuenta');
+    function pintar() {
+        const falta = CFG.fechaEvento - new Date();
+        if (falta <= 0) {
+            cont.innerHTML = '<p class="cuenta-listo">¡Llegó el gran día!</p>';
+            return;
+        }
+        const d = Math.floor(falta / 86400000);
+        const h = Math.floor(falta / 3600000) % 24;
+        const m = Math.floor(falta / 60000) % 60;
+        const s = Math.floor(falta / 1000) % 60;
+        cont.innerHTML =
+            [[d, 'días'], [h, 'horas'], [m, 'min'], [s, 'seg']]
+            .map(x => `<div class="cuenta-caja"><b>${String(x[0]).padStart(2, '0')}</b><small>${x[1]}</small></div>`)
+            .join('');
+    }
+    pintar();
+    setInterval(pintar, 1000);
+})();
+</script>
+<script src="js/visitas.js?v=2"></script>
+<script src="js/foro7-footer.js?v=2"></script>
+</body>
+</html>

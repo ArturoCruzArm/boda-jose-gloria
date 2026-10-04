@@ -1,0 +1,131 @@
+/* ============================================================
+   PORTADA — Boda José de Jesús & Gloria Adriana
+   Depende de css/base.css
+   ============================================================ */
+
+.hero {
+    min-height: 78vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 60px 20px 46px;
+    background:
+        radial-gradient(120% 90% at 50% 0%, rgba(255,255,255,.75) 0%, rgba(255,255,255,0) 60%),
+        linear-gradient(155deg, var(--rosa-palo) 0%, var(--rosa-claro) 45%, var(--champagne) 100%);
+    position: relative;
+}
+.hero::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+}
+.hero-quince {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.4rem, 16vw, 7rem);
+    color: rgba(183,146,79,.28);
+    line-height: .9; letter-spacing: -.02em;
+}
+.hero-nombre {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.8rem, 11vw, 5.4rem);
+    line-height: 1.05; margin: -.18em 0 .1em;
+}
+.hero-etiqueta {
+    font-size: .78rem; text-transform: uppercase; letter-spacing: .3em;
+    color: var(--texto-suave);
+}
+.hero-fecha {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1rem, 3vw, 1.35rem);
+    margin-top: 10px;
+}
+.hero-acciones { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 26px; }
+
+/* Cuenta regresiva */
+.cuenta {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    margin-top: 28px;
+}
+.cuenta-caja {
+    background: rgba(255,255,255,.72);
+    border: 1px solid rgba(183,146,79,.3);
+    border-radius: 12px;
+    min-width: 72px; padding: 10px 12px;
+}
+.cuenta-caja b {
+    display: block; font-family: 'Playfair Display', serif;
+    font-size: 1.55rem; line-height: 1;
+}
+.cuenta-caja small {
+    font-size: .64rem; text-transform: uppercase; letter-spacing: .12em;
+    color: var(--texto-suave);
+}
+.cuenta-listo {
+    font-family: 'Great Vibes', cursive; font-size: 1.8rem; color: var(--dorado);
+}
+
+/* Secciones */
+.seccion { padding: 56px 0; }
+.seccion:nth-of-type(even) { background: #fff; }
+.seccion-titulo {
+    text-align: center; margin-bottom: 8px;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
+}
+.seccion-titulo::after {
+    content: ''; display: block; width: 54px; height: 2px;
+    background: var(--dorado); margin: 12px auto 0;
+}
+.seccion-intro {
+    text-align: center; max-width: 680px; margin: 16px auto 30px;
+    color: var(--texto-suave); font-size: .95rem;
+}
+
+/* Tarjetas */
+.tarjetas {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+.tarjeta {
+    background: var(--crema); border: 1px solid var(--linea);
+    border-radius: var(--radio); padding: 22px 20px;
+    box-shadow: var(--sombra);
+    display: flex; flex-direction: column; gap: 8px;
+}
+.seccion:nth-of-type(even) .tarjeta { background: var(--rosa-nube); }
+.tarjeta-icono { font-size: 1.9rem; }
+.tarjeta h3 { font-family: 'Playfair Display', serif; font-size: 1.08rem; }
+.tarjeta p  { font-size: .89rem; color: var(--texto-suave); }
+.tarjeta .btn { align-self: flex-start; margin-top: 6px; }
+.tarjeta[data-cat="impresion"]  { border-top: 4px solid var(--c-impresion); }
+.tarjeta[data-cat="ampliacion"] { border-top: 4px solid var(--c-ampliacion); }
+.tarjeta[data-cat="album"]      { border-top: 4px solid var(--c-album); }
+.tarjeta[data-cat="descartada"] { border-top: 4px solid var(--c-descartada); }
+
+/* Álbum digital: banda destacada */
+.album-banda {
+    background: linear-gradient(135deg, var(--rosa-nube), var(--champagne));
+    border-radius: 20px; padding: 34px 26px; text-align: center;
+    border: 1px solid rgba(183,146,79,.28);
+}
+.album-banda h3 {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2rem, 6vw, 2.9rem); color: var(--texto);
+}
+.album-banda p { max-width: 560px; margin: 10px auto 20px; font-size: .93rem; color: var(--texto-suave); }
+.album-enlaces { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+/* Paquete */
+.paquete-lista { list-style: none; display: grid; gap: 8px; max-width: 620px; margin: 0 auto; }
+.paquete-lista li {
+    background: var(--crema); border: 1px solid var(--linea);
+    border-radius: 10px; padding: 11px 15px; font-size: .9rem;
+    display: flex; gap: 10px; align-items: flex-start;
+}
+.paquete-lista li::before { content: '✓'; color: var(--dorado); font-weight: 700; }
+
+@media (max-width: 560px) {
+    .hero { min-height: 72vh; padding: 46px 16px 36px; }
+    .seccion { padding: 42px 0; }
+    .cuenta-caja { min-width: 62px; padding: 8px 9px; }
+    .cuenta-caja b { font-size: 1.3rem; }
+}
