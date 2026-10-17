@@ -21,7 +21,8 @@ const TITULOS = {
     impresion:  'Fotos para impresión',
     ampliacion: 'La ampliación',
     descartada: 'Fotos descartadas',
-    todas:      'Nuestras fotos'
+    todas:      'Nuestras fotos',
+    fotos:      'Nuestras fotos'
 };
 
 let selecciones = {};
@@ -35,16 +36,16 @@ const $ = id => document.getElementById(id);
 function leerFiltro() {
     const p = new URLSearchParams(location.search);
     const v = (p.get('filtro') || p.get('f') || '').trim().toLowerCase();
-    return TITULOS[v] ? v : 'album';
+    return TITULOS[v] ? v : null;
 }
 
 function calcularIndices() {
     const out = [];
     for (let i = 0; i < photos.length; i++) {
         const sel = selecciones[i] || {};
-        const ok = filtro === 'todas'
-            ? !sel.descartada && IDS.some(id => sel[id])
-            : sel[filtro] === true;
+        const ok = filtro === 'todas'  ? !sel.descartada && IDS.some(id => sel[id])
+                 : filtro === 'fotos'  ? !sel.descartada
+                 : sel[filtro] === true;
         if (ok) out.push(i);
     }
     return out;
@@ -167,7 +168,8 @@ function despertar() {
 
 /* ── Arranque ─────────────────────────────────────────────── */
 async function iniciar() {
-    filtro = leerFiltro();
+    const pedido = leerFiltro();
+    filtro = pedido || 'album';
     renderPortada();
     try {
         selecciones = await SB.fetchSelecciones();
@@ -176,6 +178,16 @@ async function iniciar() {
         catch (e2) { selecciones = {}; }
     }
     indices = calcularIndices();
+    // Sin ?filtro: si el álbum digital aún está vacío, mostrar las elegidas
+    // y, si tampoco hay, todas las fotos (menos descartadas).
+    if (!pedido) {
+        for (const f of ['todas', 'fotos']) {
+            if (indices.length) break;
+            filtro = f;
+            indices = calcularIndices();
+        }
+        renderPortada();
+    }
     fondoPortada();
     renderGaleria();
     try { SB.registrarVisita('album-' + filtro); } catch (e) {}
