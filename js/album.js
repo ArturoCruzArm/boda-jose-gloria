@@ -71,7 +71,35 @@ function fondoPortada() {
     im.src = src;
 }
 
-/* ── Galería ──────────────────────────────────────────────── */
+/* ── Galería ──────────────────────────────────────────────────
+   Mosaico por columnas propias: cada foto se agrega YA cargada a la
+   columna más corta, en orden. Nada de lo ya mostrado se mueve. */
+let columnas = [], siguiente = 0, enVuelo = 0, listas = {}, aColocar = 0;
+let colocadas = [], sentinela = null;
+
+function numColumnas() {
+    const w = window.innerWidth;
+    return w < 560 ? 2 : w < 1000 ? 3 : 4;
+}
+
+function crearColumnas() {
+    const grid = $('albumGrid');
+    grid.querySelectorAll('.columna').forEach(c => c.remove());
+    columnas = [];
+    for (let i = 0; i < numColumnas(); i++) {
+        const c = document.createElement('div');
+        c.className = 'columna';
+        grid.insertBefore(c, sentinela);
+        columnas.push(c);
+    }
+}
+
+function colocar(fig) {
+    let corta = columnas[0];
+    columnas.forEach(c => { if (c.offsetHeight < corta.offsetHeight) corta = c; });
+    corta.appendChild(fig);
+}
+
 function renderGaleria() {
     const grid = $('albumGrid');
     grid.innerHTML = '';
@@ -81,44 +109,53 @@ function renderGaleria() {
                            : 'Las fotos se publican después del evento.') + '</p>';
         return;
     }
-    const frag = document.createDocumentFragment();
-    indices.forEach((idx, p) => {
-        const fig = document.createElement('figure');
-        fig.className = 'foto';
-        fig.innerHTML = `<img data-src="${thumbs[idx] || photos[idx]}" alt="" class="lazy-img">`;
-        fig.addEventListener('click', () => abrir(p));
-        frag.appendChild(fig);
+    sentinela = document.createElement('div');
+    sentinela.className = 'sentinela';
+    grid.appendChild(sentinela);
+    crearColumnas();
+    new IntersectionObserver(es => { if (es[0].isIntersecting) cargarMas(); },
+                             { rootMargin: '900px 0px' }).observe(sentinela);
+    cargarMas();
+
+    let ancho = window.innerWidth;
+    window.addEventListener('resize', () => {
+        if (window.innerWidth === ancho) return;
+        ancho = window.innerWidth;
+        if (numColumnas() === columnas.length) return;
+        crearColumnas();
+        colocadas.forEach(colocar);
     });
-    grid.appendChild(frag);
-    lazyInit();
 }
 
-/* Carga perezosa + aparición suave al entrar en pantalla */
-let lazyQueue = [], lazyActive = 0;
-function lazyNext() {
-    while (lazyActive < 4 && lazyQueue.length) {
-        const img = lazyQueue.shift();
-        if (img.classList.contains('lazy-loaded')) continue;
-        lazyActive++;
-        img.onload = img.onerror = () => {
-            lazyActive--;
-            img.parentElement.classList.add('visible');
-            lazyNext();
-        };
-        img.src = img.dataset.src;
-        img.classList.add('lazy-loaded');
+/* Precarga hasta 4 a la vez, pero coloca estrictamente en orden */
+function cargarMas() {
+    const r = sentinela.getBoundingClientRect();
+    if (r.top > window.innerHeight + 900) return;
+    while (enVuelo < 4 && siguiente < indices.length) {
+        const p = siguiente++;
+        const idx = indices[p];
+        enVuelo++;
+        const img = new Image();
+        img.alt = '';
+        img.onload = img.onerror = () => { enVuelo--; listas[p] = img; vaciar(); };
+        img.src = thumbs[idx] || photos[idx];
     }
 }
-function lazyInit() {
-    const obs = new IntersectionObserver(es => {
-        es.forEach(e => {
-            if (!e.isIntersecting) return;
-            obs.unobserve(e.target);
-            lazyQueue.push(e.target.querySelector('img'));
-            lazyNext();
-        });
-    }, { rootMargin: '500px 0px' });
-    document.querySelectorAll('#albumGrid .foto').forEach(f => obs.observe(f));
+
+function vaciar() {
+    while (listas[aColocar]) {
+        const p = aColocar, img = listas[p];
+        delete listas[p];
+        aColocar++;
+        const fig = document.createElement('figure');
+        fig.className = 'foto';
+        fig.appendChild(img);
+        fig.addEventListener('click', () => abrir(p));
+        colocar(fig);
+        colocadas.push(fig);
+        requestAnimationFrame(() => fig.classList.add('visible'));
+    }
+    cargarMas();
 }
 
 /* ── Visor ────────────────────────────────────────────────── */
