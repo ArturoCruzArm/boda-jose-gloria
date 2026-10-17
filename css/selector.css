@@ -237,3 +237,35 @@ body:has(#photoModal.active) #foro7-visit-counter { display: none; }
     .btn         { font-size: .8rem; padding: 8px 13px; }
     .control-panel { padding: 12px 0; }
 }
+
+/* ── Menú contraíble ──────────────────────────────────────────
+   Botón para ocultar todo el panel y cada sección plegable,
+   para que las fotos siempre queden a la vista. */
+.control-panel { padding: 8px 0 10px; }
+.panel-toggle {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; background: var(--rosa-nube); border: 1px solid var(--linea);
+    border-radius: 999px; padding: 7px 14px; cursor: pointer;
+    font-family: inherit; font-size: .85rem; font-weight: 700; color: var(--texto);
+}
+.panel-toggle .chev { font-size: .7rem; transition: transform .2s; }
+.control-panel.colapsado .panel-toggle .chev { transform: rotate(180deg); }
+.control-panel.colapsado .panel-cuerpo { display: none; }
+.panel-cuerpo {
+    max-height: 60vh; max-height: 60dvh; overflow-y: auto;
+    overscroll-behavior: contain; margin-top: 8px;
+}
+.panel-sec { border-bottom: 1px solid var(--linea); padding: 6px 0; }
+.panel-sec:last-child { border-bottom: none; }
+.panel-sec > summary {
+    cursor: pointer; list-style: none; user-select: none;
+    font-size: .8rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .05em; color: var(--texto-suave); padding: 4px 2px;
+    display: flex; align-items: center; justify-content: space-between;
+}
+.panel-sec > summary::-webkit-details-marker { display: none; }
+.panel-sec > summary::after { content: '▾'; font-size: 1rem; transition: transform .2s; }
+.panel-sec:not([open]) > summary::after { transform: rotate(-90deg); }
+.panel-sec[open] > summary { margin-bottom: 8px; }
+.panel-sec .stats-row { margin-bottom: 4px; }
+.panel-sec .action-buttons.secondary { margin-top: 0; padding-top: 0; border-top: none; }

@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css?v=2">
-<link rel="stylesheet" href="css/selector.css?v=3">
+<link rel="stylesheet" href="css/selector.css?v=4">
 </head>
 <body>
 
@@ -22,25 +22,39 @@
     <p class="instructions" id="instrucciones"></p>
 </header>
 
-<section class="control-panel">
+<section class="control-panel" id="controlPanel">
     <div class="container">
-        <div class="stats-row" id="statsRow"></div>
-        <div class="action-buttons" id="filterRow"></div>
-        <p class="nota-filtro" id="notaFiltro"></p>
+        <button type="button" class="panel-toggle" id="panelToggle" aria-expanded="true" aria-controls="panelCuerpo">
+            <span class="panel-toggle-txt">Ocultar menú</span> <span class="chev">▲</span>
+        </button>
+        <div class="panel-cuerpo" id="panelCuerpo">
+            <details class="panel-sec" data-sec="conteo" open>
+                <summary>📊 Mi selección</summary>
+                <div class="stats-row" id="statsRow"></div>
+            </details>
+            <details class="panel-sec" data-sec="filtros" open>
+                <summary>🔎 Filtrar fotos</summary>
+                <div class="action-buttons" id="filterRow"></div>
+                <p class="nota-filtro" id="notaFiltro"></p>
+            </details>
 
-        <div class="aviso aviso-naranja" id="avisoExtra"></div>
-        <div class="aviso aviso-dorado"  id="avisoAmpliacion"></div>
-        <div class="aviso aviso-gris"    id="avisoOffline">
-            📴 Sin conexión con la nube. Tus marcas se guardan en este dispositivo y se sincronizan al reconectar.
-        </div>
+            <div class="aviso aviso-naranja" id="avisoExtra"></div>
+            <div class="aviso aviso-dorado"  id="avisoAmpliacion"></div>
+            <div class="aviso aviso-gris"    id="avisoOffline">
+                📴 Sin conexión con la nube. Tus marcas se guardan en este dispositivo y se sincronizan al reconectar.
+            </div>
 
-        <div class="action-buttons secondary">
-            <button class="btn btn-suave"    id="btnExport">📥 Descargar Reporte</button>
-            <button class="btn btn-suave"    id="btnCopy">📤 Copiar Resumen</button>
-            <button class="btn btn-primario" id="btnShareAlbum">🔗 Compartir Álbum</button>
-            <a class="btn btn-suave" href="album.html">📖 Ver álbum digital</a>
-            <button class="btn btn-suave" data-abrir-ayuda>❔ Ayuda</button>
-            <button class="btn btn-suave"    id="btnClear">🗑️ Limpiar Todo</button>
+            <details class="panel-sec" data-sec="opciones" open>
+                <summary>⚙️ Opciones</summary>
+                <div class="action-buttons secondary">
+                    <button class="btn btn-suave"    id="btnExport">📥 Descargar Reporte</button>
+                    <button class="btn btn-suave"    id="btnCopy">📤 Copiar Resumen</button>
+                    <button class="btn btn-primario" id="btnShareAlbum">🔗 Compartir Álbum</button>
+                    <a class="btn btn-suave" href="album.html">📖 Ver álbum digital</a>
+                    <button class="btn btn-suave" data-abrir-ayuda>❔ Ayuda</button>
+                    <button class="btn btn-suave"    id="btnClear">🗑️ Limpiar Todo</button>
+                </div>
+            </details>
         </div>
     </div>
 </section>
@@ -108,7 +122,7 @@
 <script src="js/config.js?v=2"></script>
 <script src="js/photos.js?v=4"></script>
 <script src="js/supabase-api.js?v=2"></script>
-<script src="js/selector.js?v=2"></script>
+<script src="js/selector.js?v=3"></script>
 <script src="js/ayuda.js?v=2"></script>
 <script src="js/visitas.js?v=2"></script>
 <script src="js/foro7-footer.js?v=2"></script>

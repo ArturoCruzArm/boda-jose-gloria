@@ -731,3 +731,35 @@ window.addEventListener('beforeunload', guardarLocal);
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(() => {});
 
 })();
+
+/* ============================================================
+   MENÚ CONTRAÍBLE (estado recordado en este dispositivo)
+   ============================================================ */
+(function menuContraible() {
+    const panel = document.getElementById('controlPanel');
+    const btn   = document.getElementById('panelToggle');
+    if (!panel || !btn) return;
+    const KEY = 'selectorMenu';
+    let estado = {};
+    try { estado = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+    const guardar = () => { try { localStorage.setItem(KEY, JSON.stringify(estado)); } catch (e) {} };
+
+    function aplicar(colapsado) {
+        panel.classList.toggle('colapsado', colapsado);
+        btn.setAttribute('aria-expanded', String(!colapsado));
+        btn.querySelector('.panel-toggle-txt').textContent = colapsado ? 'Mostrar menú' : 'Ocultar menú';
+    }
+    aplicar(!!estado.colapsado);
+    btn.addEventListener('click', () => {
+        estado.colapsado = !panel.classList.contains('colapsado');
+        aplicar(estado.colapsado);
+        guardar();
+    });
+
+    estado.secs = estado.secs || {};
+    panel.querySelectorAll('details.panel-sec').forEach(d => {
+        const k = d.dataset.sec;
+        if (k in estado.secs) d.open = estado.secs[k];
+        d.addEventListener('toggle', () => { estado.secs[k] = d.open; guardar(); });
+    });
+})();
